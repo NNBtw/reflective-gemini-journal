@@ -948,3 +948,21 @@ The initial read-only review identified the following confirmed risks:
 - [x] Classified seven non-terminating `Split-Path` messages from the first documentation-only scan as a report-formatting defect：each zero-hit category supplied a null path to the display column，while all scan counts and the total remained `0`。
 - [x] Reran the documentation scan with a zero-hit-safe per-match formatter。It completed without errors and returned `CORRECTED_DOCUMENT_SECRET_SCAN_HITS=0` across all seven secret patterns；no secret exposure or security regression was found。
 - [x] Recorded a later read-only PowerShell parser error from piping a `foreach` statement directly。No file changed；the corrected variable-first verification confirmed all five documents had zero trailing whitespace and the expected scan-result marker。
+- [!] GitHub secret-scanning alert `#1` detected the Firebase Web client key at `firebase-applet-config.json:4` in commit `7133301`。Triage used only masked value `AIza...2W0I` for Firebase project `jimmy-gemini-journal`。
+- [x] Confirmed by static source review that this key is consumed as Firebase client configuration；Gemini and Google Maps server credentials remain separate environment variables。
+- [ ] Verify the key's Application restrictions and API restrictions in Google Cloud Console。The key must be limited to required Firebase-related APIs and must not allow Generative Language API or unrelated billable APIs。
+- [ ] Keep PR `#1` unmerged and leave the alert open until restriction review is complete。No rotation、restriction mutation、alert dismissal，merge，or deployment has occurred。
+- [x] Console review confirmed key name `Browser key (auto created by Firebase)`，Application restrictions `None`，and an API allowlist with no Generative Language、Gemini、Maps、Places，or Geocoding APIs。
+- [!] Least-privilege gap：the public client-key allowlist includes unused `Firebase AI Logic API` while App Check enforcement remains off，plus unused `Cloud SQL Admin API` and `Firebase SQL Connect API`。
+- [ ] With explicit user approval，remove only those three APIs，save，wait for propagation，and perform production Auth／Firestore smoke tests before resolving GitHub alert `#1`。
+- [x] Recorded two non-mutating read limitations：unauthenticated external access could not inspect private PR `#1`，and the first domain-search wrapper produced no usable output。Signed-in UI evidence and a corrected local search completed the review。
+- [x] After explicit approval，removed `Firebase AI Logic API`、`Cloud SQL Admin API`，and `Firebase SQL Connect API` from `Browser key (auto created by Firebase)`。Save succeeded with no warning or error。
+- [x] Confirmed Application restrictions remain `None` and the seven required Firebase Management、Cloud Logging、App Check、Identity Toolkit、Token Service、Cloud Datastore，and Cloud Firestore APIs remain selected。
+- [x] Recorded two atomic documentation patch rejections：stale security-log context，then an invalid README context token。No partial edit occurred；independently anchored patches were used afterward。
+- [ ] After propagation，perform the production read-only Auth／Firestore smoke。Keep alert `#1` open and PR `#1` unmerged until it passes。
+- [x] Production DevTools Console／Network check found no targeted API-key restriction error or HTTP `403` after reload。
+- [ ] Confirm landing render、authentication state、journal-list read，and one existing-journal read before resolving the alert。
+- [x] Production functional smoke passed：landing、existing authentication、journal-list Firestore read，and existing-journal read were normal after the API allowlist update。
+- [x] Combined smoke found no API-key restriction error、HTTP `403`，or functional regression；no data write or Gemini request occurred。
+- [x] Classify the remaining detected value as intended public Firebase Web client configuration，not a server credential。Unused Firebase AI Logic／SQL APIs have been removed and the runtime gate passed。
+- [ ] Sync this remediation evidence to PR `#1`，then dismiss GitHub alert `#1` as `Won't fix` with a precise audit comment。
