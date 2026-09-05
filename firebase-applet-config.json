@@ -1,0 +1,12 @@
+{
+  "projectId": "jimmy-gemini-journal",
+  "appId": "1:516107960247:web:9d130ffd99d1cb675f3232",
+  "apiKey": "AIzaSyArn0KYdnNtsyJnf80DrQ8qf9rRWDT2W0I",
+  "authDomain": "jimmy-gemini-journal.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-d82d6296-0049-4433-955f-91f203831d05",
+  "storageBucket": "jimmy-gemini-journal.firebasestorage.app",
+  "messagingSenderId": "516107960247",
+  "measurementId": "",
+  "oAuthClientId": "516107960247-v6cn4uhfqn0vadonpi14mknd9d42sn19.apps.googleusercontent.com",
+  "recaptchaSiteKey": "6LfQvKUtAAAAAKBRijQMupx-XTXUeaqlxARcNu5e"
+}

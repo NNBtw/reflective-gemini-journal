@@ -1,0 +1,191 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function isValidNotificationEventType(eventType) {
+      return eventType is string && eventType in ['summary_ready', 'weekly_reminder', 'manual_test'];
+    }
+
+    function hasValidNotificationEventTypes(eventTypes) {
+      return eventTypes is list && eventTypes.size() <= 3 &&
+        (eventTypes.size() < 1 || isValidNotificationEventType(eventTypes[0])) &&
+        (eventTypes.size() < 2 || isValidNotificationEventType(eventTypes[1])) &&
+        (eventTypes.size() < 3 || isValidNotificationEventType(eventTypes[2]));
+    }
+
+    function isValidNotificationPreferences(data) {
+      return data.keys().hasAll([
+          'enabled', 'email', 'slack', 'discord', 'eventTypes', 'consentVersion', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'enabled', 'email', 'slack', 'discord', 'eventTypes', 'consentVersion', 'updatedAt'
+        ]) &&
+        data.enabled is bool && data.email is bool && data.slack is bool && data.discord is bool &&
+        hasValidNotificationEventTypes(data.eventTypes) &&
+        data.consentVersion == '2026-09-04' &&
+        data.updatedAt is int && data.updatedAt > 0;
+    }
+
+    function isValidSafetyPreferences(data) {
+      return data.keys().hasAll(['countryCode', 'updatedAt']) &&
+        data.keys().hasOnly(['countryCode', 'updatedAt']) &&
+        data.countryCode is string && data.countryCode in ['IN', 'TW', 'EU', 'GLOBAL'] &&
+        data.updatedAt is int && data.updatedAt > 0;
+    }
+
+    function isValidTag(tag) {
+      return tag is string && tag.size() > 0 && tag.size() <= 40;
+    }
+
+    function hasValidTags(tags) {
+      return tags is list && tags.size() <= 10 &&
+        (tags.size() < 1 || isValidTag(tags[0])) &&
+        (tags.size() < 2 || isValidTag(tags[1])) &&
+        (tags.size() < 3 || isValidTag(tags[2])) &&
+        (tags.size() < 4 || isValidTag(tags[3])) &&
+        (tags.size() < 5 || isValidTag(tags[4])) &&
+        (tags.size() < 6 || isValidTag(tags[5])) &&
+        (tags.size() < 7 || isValidTag(tags[6])) &&
+        (tags.size() < 8 || isValidTag(tags[7])) &&
+        (tags.size() < 9 || isValidTag(tags[8])) &&
+        (tags.size() < 10 || isValidTag(tags[9]));
+    }
+
+    function isValidMessage(msg) {
+      return msg is map &&
+        msg.keys().hasAll(['id', 'role', 'content', 'timestamp']) &&
+        msg.keys().hasOnly(['id', 'role', 'content', 'timestamp', 'mode', 'modelUsed']) &&
+        msg.id is string && msg.id.size() > 0 && msg.id.size() <= 100 &&
+        msg.role is string && (msg.role == 'user' || msg.role == 'gemini') &&
+        msg.content is string && msg.content.size() > 0 && msg.content.size() <= 4000 &&
+        msg.timestamp is int && msg.timestamp > 0 &&
+        (!msg.keys().hasAny(['mode']) || (msg.mode is string && msg.mode in ['reflect', 'summarize', 'brainstorm', 'action_items', 'mindfulness'])) &&
+        (!msg.keys().hasAny(['modelUsed']) || (msg.modelUsed is string && msg.modelUsed.size() > 0 && msg.modelUsed.size() <= 100));
+    }
+
+    function hasValidInitialMessages(messages) {
+      return messages is list &&
+        (messages.size() == 0 ? true :
+          messages.size() == 1 ? isValidMessage(messages[0]) :
+          messages.size() == 2 ? isValidMessage(messages[0]) && isValidMessage(messages[1]) :
+          false);
+    }
+
+    function hasValidMessageTransition(nextMessages, previousMessages) {
+      return nextMessages is list && previousMessages is list &&
+        nextMessages.size() <= 20 &&
+        (nextMessages == previousMessages ? true :
+          nextMessages.size() == previousMessages.size() + 1 ?
+          (
+            nextMessages[0:previousMessages.size()] == previousMessages &&
+            isValidMessage(nextMessages[nextMessages.size() - 1])
+          ) :
+          previousMessages.size() == 20 && nextMessages.size() == 20 ?
+          (
+            nextMessages[0:19] == previousMessages[1:20] &&
+            isValidMessage(nextMessages[19])
+          ) :
+          false);
+    }
+
+    function isValidLocation(location) {
+      return location is map &&
+        location.keys().hasAll(['latitude', 'longitude']) &&
+        location.keys().hasOnly(['latitude', 'longitude', 'label']) &&
+        location.latitude is number &&
+        location.latitude >= -90 && location.latitude <= 90 &&
+        location.longitude is number &&
+        location.longitude >= -180 && location.longitude <= 180 &&
+        (!location.keys().hasAny(['label']) ||
+          (location.label is string && location.label.size() > 0 && location.label.size() <= 120));
+    }
+
+    function isValidTakeaway(takeaway) {
+      return takeaway is string && takeaway.size() > 0 && takeaway.size() <= 240;
+    }
+
+    function hasValidTakeawaysList(takeaways) {
+      return takeaways is list &&
+        takeaways.size() >= 3 && takeaways.size() <= 5 &&
+        isValidTakeaway(takeaways[0]) &&
+        isValidTakeaway(takeaways[1]) &&
+        isValidTakeaway(takeaways[2]) &&
+        (takeaways.size() < 4 || isValidTakeaway(takeaways[3])) &&
+        (takeaways.size() < 5 || isValidTakeaway(takeaways[4]));
+    }
+
+    function hasValidSummaryAndTakeaways(data) {
+      return data.get('latestSummary', '') is string &&
+        data.get('latestSummary', '').size() <= 4000 &&
+        data.get('keyTakeaways', []) is list &&
+        (
+          (data.get('latestSummary', '').size() == 0 && data.get('keyTakeaways', []).size() == 0) ||
+          (data.get('latestSummary', '').size() > 0 && hasValidTakeawaysList(data.get('keyTakeaways', [])))
+        );
+    }
+
+    function hasValidEntryShape(data, entryId, userId) {
+      return data.keys().hasAll([
+          'id', 'userId', 'title', 'createdAt', 'updatedAt',
+          'tags', 'messages', 'wordCount'
+        ]) &&
+        data.keys().hasOnly([
+          'id', 'userId', 'title', 'createdAt', 'updatedAt',
+          'tags', 'mood', 'messages', 'latestSummary',
+          'keyTakeaways', 'location', 'wordCount'
+        ]) &&
+        data.id == entryId &&
+        data.userId == userId &&
+        data.title is string && data.title.size() <= 120 &&
+        data.createdAt is int && data.createdAt > 0 &&
+        data.updatedAt is int && data.updatedAt >= data.createdAt &&
+        hasValidTags(data.tags) &&
+        data.messages is list && data.messages.size() <= 20 &&
+        data.wordCount is int && data.wordCount >= 0 && data.wordCount <= 100000 &&
+        data.get('mood', '') is string &&
+        data.get('mood', '') in ['', 'calm', 'inspired', 'anxious', 'grateful', 'energetic', 'reflective', 'tired'] &&
+        (!data.keys().hasAny(['location']) || data.location == null || isValidLocation(data.location)) &&
+        hasValidSummaryAndTakeaways(data);
+    }
+
+    match /users/{userId} {
+      allow read, write: if false;
+
+      match /entries/{entryId} {
+        allow read, delete: if isOwner(userId);
+        allow create: if resource == null &&
+          isOwner(userId) &&
+          hasValidEntryShape(request.resource.data, entryId, userId) &&
+          hasValidInitialMessages(request.resource.data.messages);
+        allow update: if resource != null &&
+          isOwner(userId) &&
+          hasValidEntryShape(request.resource.data, entryId, userId) &&
+          request.resource.data.userId == resource.data.userId &&
+          request.resource.data.id == resource.data.id &&
+          request.resource.data.createdAt == resource.data.createdAt &&
+          hasValidMessageTransition(request.resource.data.messages, resource.data.messages);
+      }
+
+
+      match /preferences/{preferenceId} {
+        allow read: if isOwner(userId) && preferenceId in ['notifications', 'safety'];
+        allow create, update: if isOwner(userId) &&
+          ((preferenceId == 'notifications' && isValidNotificationPreferences(request.resource.data)) ||
+           (preferenceId == 'safety' && isValidSafetyPreferences(request.resource.data)));
+        allow delete: if isOwner(userId) && preferenceId in ['notifications', 'safety'];
+      }
+    }
+
+
+    match /_adminAudit/{auditId} {
+      allow read, write: if false;
+    }
+
+    match /_notificationEvents/{eventId} {
+      allow read, write: if false;
+    }
+  }
+}
