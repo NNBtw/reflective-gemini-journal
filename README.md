@@ -561,3 +561,7 @@ Final local diff whitespace validation passed；the credential scan found no new
 The fixed Firestore Rules are now deployed to the application's named database。Google AI Studio contains exactly the two persistence-gated application replacements，and its typecheck／production build passed。A controlled Preview test successfully saved the first user message、received a `gemini-3.6-flash` response，and retained both messages after reload without a Firestore permission error。
 
 The temporary Preview Maps failure was an expected referrer restriction：the production Maps key rejected the transient Preview origin while `/api/maps-config` remained healthy。The separately restricted Preview key passed pin／save／reload／remove；the synthetic location was removed and production-key mapping was restored。The application checkpoint still requires Republish and a final synthetic Production regression。
+
+Republish subsequently reached `Ready`，and Production passed first-message save、Gemini response、reload persistence、no Firestore permission error、`gemini-3.6-flash` attribution，and Maps loading。The persistence remediation is deployed and runtime-verified。
+
+Map labels are localized separately from the app UI。Because the Maps loader does not force a `language` or `region` parameter，Google Maps follows the visitor's browser-preferred language；selecting English inside Reflective does not guarantee English map labels。

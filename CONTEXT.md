@@ -760,4 +760,5 @@ Please confirm you understand the constraints above that are relevant to this ta
 
 - The named Firestore database now runs the fixed `0 → 1` message-transition Rules。The AI Studio application checkpoint contains exactly the persistence-gated `src/App.tsx` and `src/components/JournalEditor.tsx` replacements；it is Preview-verified and not yet republished。
 - Preview Maps uses an ephemeral `ais-dev-…run.app` referrer。The production-restricted Maps key correctly failed there with `RefererNotAllowedMapError`；the separate Preview key passed the complete location lifecycle，then runtime mapping was restored to the production key。
-- Preview first-message save、Gemini reply、reload persistence，and `gemini-3.6-flash` attribution all passed under the intended test account。The remaining release path is Republish → Ready → one synthetic Production regression。
+- Preview first-message save、Gemini reply、reload persistence，and `gemini-3.6-flash` attribution all passed under the intended test account。Republish then reached `Ready`，and the same Production persistence checks plus production Maps load passed。
+- Google Maps localization is independent from `reflectai.uiLocale.v1`：the current loader omits Maps `language`／`region` parameters，so Maps follows each visitor's browser-preferred language。Do not claim that the app language selector localizes map labels。
