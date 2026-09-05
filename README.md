@@ -464,6 +464,12 @@ Keep `node_modules/`、`dist/`、`.firebase-config/`、`*.log`，and real `.env*
 
 The payload commit `7133301` passed the complete staged review and left a clean working tree。The next release-control step is to commit the documentation-only status refresh，fetch and verify `origin`，and push the candidate branch。Merge、deployment、Publish，owner bootstrap，and role mutation have not been performed。
 
+The verified branch is now available on GitHub at `candidate/verified-2026-09-05`。The first push completed at `a438eac580619469d9fbdfcd30c9fa76825b9e0f` with an exact local／remote hash match and upstream tracking configured。`main` remains at the initial commit。After this publication record is committed and pushed，open a Pull Request into `main` and review the complete import before merging；deployment、AI Studio Publish，and privileged RBAC operations remain separate gates。
+
 Git operations should be run from the repository owner's normal PowerShell session。A read-only Codex sandbox process may report `dubious ownership` because its Windows SID differs；do not add a broad global `safe.directory` exception for this。This does not affect the user-owned checkout or its verified Git status。
 
 Repository text files are normalized by `.gitattributes` using `* text=auto eol=lf`。This prevents Windows Git、Codex，and other local／cloud agents from creating line-ending-only diffs。The initial staging pass exposed inherited trailing whitespace and one extra EOF blank line；those exact formatting defects were removed，the staged index was renormalized，`git diff --cached --check` passed，and TypeScript still passed afterward。
+
+The first focused scan of the publication-record documents reported seven non-terminating `Split-Path` errors while formatting empty file lists；all seven pattern counts and the total were still `0`。The zero-hit-safe formatter was then rerun without errors and returned `CORRECTED_DOCUMENT_SECRET_SCAN_HITS=0`。This was a local reporting-script defect and did not expose a secret or change application code。
+
+A subsequent read-only source-document verification command also failed to parse when a PowerShell `foreach` statement was connected directly to a pipeline。It made no file changes；the corrected variable-first command confirmed zero trailing whitespace and the expected corrected-scan marker in all five handoff documents。

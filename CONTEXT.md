@@ -680,3 +680,12 @@ Please confirm you understand the constraints above that are relevant to this ta
 - Two correction attempts failed safely：`.gitattributes` creation was first pasted onto an unsubmitted status command，and a .NET helper interpreted relative paths from `C:\Windows\System32`。No intended source file changed in those failed attempts；the subsequent absolute-path run succeeded。Final staged whitespace check `0`，non-LF index entries `0`，post-cleanup typecheck `0`。
 - Commit state：`7133301 Assemble verified Reflective journal candidate` contains 52 files，`20,064` insertions，and `6` deletions；the post-commit working tree was clean。This documentation-only refresh follows that payload commit。
 - Next action：commit the refreshed handoff state，fetch／verify `origin`，then push `candidate/verified-2026-09-05`。No merge／deploy／Publish or privileged RBAC operation has occurred。
+
+### 2026-09-05 — GitHub candidate publication
+
+- Pre-push fetch：exit `0`。`origin/main=ada36d38efd03f7620ce82aea3d423b5b18e0fa2`；local candidate `a438eac580619469d9fbdfcd30c9fa76825b9e0f`；remote candidate absent；main ancestor check `0`；divergence `0 2`。
+- First candidate push：exit `0`。Remote `candidate/verified-2026-09-05` now equals local `a438eac580619469d9fbdfcd30c9fa76825b9e0f`，upstream tracking is configured，and the working tree is clean。
+- Current remote branch：`https://github.com/NNBtw/reflective-gemini-journal/tree/candidate/verified-2026-09-05`。`main` is still `ada36d3`。
+- Next action：commit／push this publication record，then open and review a PR into `main`。No merge、deployment、Publish，or privileged RBAC action has occurred。
+- Documentation scan correction：the first report produced seven non-terminating `Split-Path` null-path errors while formatting the empty `Files` column。All seven security-pattern counts and the total were nevertheless `0`，and local documentation commit creation succeeded。A corrected per-match pipeline reran without errors with `CORRECTED_DOCUMENT_SECRET_SCAN_HITS=0`；this was a reporting-script defect with no secret exposure。
+- Handoff-source verification correction：a read-only PowerShell command failed to parse when `foreach` was piped directly。No write occurred；assigning the loop results before formatting succeeded and confirmed zero trailing-whitespace lines plus one corrected-scan marker in each of the five documents。

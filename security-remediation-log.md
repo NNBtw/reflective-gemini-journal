@@ -941,3 +941,10 @@ The initial read-only review identified the following confirmed risks:
 - [x] Created local candidate commit `7133301` successfully；the immediate post-commit working tree was clean。
 - [ ] Commit this documentation-only status refresh，then fetch and verify the remote before pushing the candidate branch。
 - [ ] Do not merge／deploy／Publish or perform owner bootstrap／role mutation until the relevant final review gate is completed。
+- [x] Created documentation-only commit `a438eac` and completed the read-only remote collision／ancestry gate。`origin/main` remained `ada36d3`，the remote candidate name was unused，and local divergence was `0 2`。
+- [x] Pushed `candidate/verified-2026-09-05` successfully and configured upstream tracking。Remote and local commit hashes matched exactly at `a438eac580619469d9fbdfcd30c9fa76825b9e0f`；working tree clean。
+- [ ] Commit／push this publication-status documentation update，then open a human-reviewed Pull Request into `main`。
+- [ ] Keep merge、deployment、Publish、owner bootstrap，and role mutation behind their separate review gates。
+- [x] Classified seven non-terminating `Split-Path` messages from the first documentation-only scan as a report-formatting defect：each zero-hit category supplied a null path to the display column，while all scan counts and the total remained `0`。
+- [x] Reran the documentation scan with a zero-hit-safe per-match formatter。It completed without errors and returned `CORRECTED_DOCUMENT_SECRET_SCAN_HITS=0` across all seven secret patterns；no secret exposure or security regression was found。
+- [x] Recorded a later read-only PowerShell parser error from piping a `foreach` statement directly。No file changed；the corrected variable-first verification confirmed all five documents had zero trailing whitespace and the expected scan-result marker。

@@ -1083,4 +1083,14 @@ The next product pass should make the reflective outcome more concrete:
 - Final `git diff --cached --check`：exit `0`。Post-formatting `pnpm run lint`／`tsc --noEmit`：exit `0`。No application logic changed；the remediation adds one repository policy file and whitespace-only edits to the listed files。
 - Created local commit `7133301` with message `Assemble verified Reflective journal candidate`。Commit scope：52 files，`20,064` insertions，`6` deletions。`COMMIT_EXIT=0`，and the working tree was clean immediately after commit。
 - This subsequent documentation-only update records the completed local commit。The branch has not been pushed，merged，deployed，or published；no role or cloud data mutation occurred。
+
+## 2026-09-05 — Publish verified candidate branch
+
+- Created documentation-only commit `a438eac`（`Record canonical candidate verification state`）after the payload commit `7133301`。The two-commit branch remained a direct descendant of `origin/main=ada36d3`。
+- Read-only remote gate passed：fetch exit `0`，remote candidate name unused，main ancestor check `0`，and divergence `0 2`。
+- Pushed `candidate/verified-2026-09-05` with upstream tracking。Push exit `0`；local and remote both resolved to full hash `a438eac580619469d9fbdfcd30c9fa76825b9e0f`，and the working tree remained clean。
+- This documentation-only update records the successful branch publication。Pull Request、merge、deployment、Publish、owner bootstrap、role mutation，and cloud data mutation remain unperformed。
 - Changed repository configuration／packaging files in this phase：`pnpm-workspace.yaml` lifecycle policy、`.gitignore` local Firebase-state exclusion，plus seven restored test-harness files。Application runtime source was not changed。No commit、push、merge、deployment、Publish、role change，or cloud data mutation occurred。
+- During the pre-push documentation-only commit，the first focused secret-scan report emitted seven non-terminating `Split-Path` errors when its display expression attempted to process `$null` paths for zero-hit categories。The underlying scan still returned seven zero counts and total `0`；commit creation succeeded and left the branch ahead by one。
+- Replaced the report expression with a zero-hit-safe per-match pipeline and reran it。No PowerShell errors occurred；PrivateKey、GoogleKey、GitHubToken、SlackHook、DiscordHook、OAuthSecret，and BearerJwt all remained `0`，with `CORRECTED_DOCUMENT_SECRET_SCAN_HITS=0`。No application code or runtime configuration changed。
+- A later read-only source-document check hit a PowerShell parser error because a `foreach` statement was connected directly to `Format-Table`。It made no file changes。The corrected variable-first form passed，confirming zero trailing-whitespace lines and one corrected-scan marker in every required handoff document。
