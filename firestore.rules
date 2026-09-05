@@ -80,8 +80,12 @@ service cloud.firestore {
         (nextMessages == previousMessages ? true :
           nextMessages.size() == previousMessages.size() + 1 ?
           (
-            nextMessages[0:previousMessages.size()] == previousMessages &&
-            isValidMessage(nextMessages[nextMessages.size() - 1])
+            previousMessages.size() == 0 ?
+              isValidMessage(nextMessages[0]) :
+              (
+                nextMessages[0:previousMessages.size()] == previousMessages &&
+                isValidMessage(nextMessages[nextMessages.size() - 1])
+              )
           ) :
           previousMessages.size() == 20 && nextMessages.size() == 20 ?
           (

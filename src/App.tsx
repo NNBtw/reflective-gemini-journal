@@ -116,7 +116,7 @@ function AppContent() {
 
   // Save/Update entry in Firestore
   const handleUpdateEntry = async (updated: JournalEntry) => {
-    if (!user) return;
+    if (!user) return false;
 
     // Optimistic UI update
     setEntries((prev) =>
@@ -128,10 +128,12 @@ function AppContent() {
       await saveUserEntry(updated);
       setSyncStatus('synced');
       setSaveError(null);
+      return true;
     } catch (err: any) {
       console.error('Error saving entry:', err);
       setSyncStatus('error');
       setSaveError(t('failedToSaveEntry'));
+      return false;
     }
   };
 

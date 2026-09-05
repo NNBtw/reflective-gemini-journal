@@ -30,7 +30,7 @@ import { dispatchNotification } from '../lib/api';
 
 interface JournalEditorProps {
   entry: JournalEntry;
-  onUpdateEntry: (updated: JournalEntry) => Promise<void>;
+  onUpdateEntry: (updated: JournalEntry) => Promise<boolean>;
   onDeleteEntry: (id: string) => void;
   onOpenSidebar: () => void;
   isSaving: boolean;
@@ -382,11 +382,12 @@ export const JournalEditor: React.FC<JournalEditorProps> = ({
       };
 
       const finalMessages = [...messagesToSend, geminiMessage].slice(-MAX_STORED_MESSAGES);
-      await onUpdateEntry({
+      const saved = await onUpdateEntry({
         ...targetEntry,
         messages: finalMessages,
         updatedAt: Date.now(),
       });
+      if (!saved) throw new ChatActionError('GENERIC_RETRY');
       setChatErrorCode(null);
     } catch (err: unknown) {
       console.error('[Chat] Request failed');
@@ -429,7 +430,8 @@ export const JournalEditor: React.FC<JournalEditorProps> = ({
         : entry.title,
     };
 
-    await onUpdateEntry(updatedEntry);
+    const saved = await onUpdateEntry(updatedEntry);
+    if (!saved) return;
     setInputText('');
     await executeChatGeneration(newMessages, updatedEntry);
   };
@@ -536,12 +538,13 @@ export const JournalEditor: React.FC<JournalEditorProps> = ({
         throw new SummaryActionError('INVALID_SHAPE');
       }
 
-      await onUpdateEntry({
+      const saved = await onUpdateEntry({
         ...entry,
         latestSummary: cleanedSummary,
         keyTakeaways: cleanedTakeaways,
         updatedAt: Date.now(),
       });
+      if (!saved) throw new SummaryActionError('GENERIC_RETRY');
 
       void dispatchNotification('summary_ready', `summary-ready:${entry.id}:${Date.now()}`)
         .catch(() => console.error('[Notification] Dispatch failed'));

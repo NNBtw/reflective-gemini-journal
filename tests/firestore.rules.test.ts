@@ -233,6 +233,36 @@ test('owner can create an empty journal entry', async () => {
   await assertSucceeds(setDoc(doc(ownerDb(), ENTRY_PATH), validEntry({ messages: [] })));
 });
 
+test('frontend-shaped first message update can append to an empty journal entry', async () => {
+  const ref = doc(ownerDb(), ENTRY_PATH);
+  const createdAt = 1_700_000_000_000;
+  const firstMessage = {
+    id: 'msg-1700000000001-abc12',
+    role: 'user',
+    content: 'I want to reflect on a difficult day.',
+    timestamp: createdAt + 1,
+    mode: 'reflect',
+  };
+
+  await assertSucceeds(setDoc(ref, validEntry({
+    title: 'New Reflection',
+    createdAt,
+    updatedAt: createdAt,
+    messages: [],
+    wordCount: 0,
+  })));
+
+  await assertSucceeds(setDoc(ref, {
+    ...validEntry({
+      title: firstMessage.content,
+      createdAt,
+      updatedAt: createdAt + 2,
+      messages: [firstMessage],
+      wordCount: 8,
+    }),
+  }, { merge: true }));
+});
+
 test('initial entry creation rejects more than two messages', async () => {
   const validMessage = validEntry().messages[0];
   await assertFails(setDoc(doc(ownerDb(), ENTRY_PATH), validEntry({
