@@ -452,7 +452,7 @@ Restoring the command files does not create an owner or admin。Do not store the
 
 ### 2026-09-05 canonical repository candidate
 
-The verified candidate has been assembled in the GitHub clone at `D:\Lessons\Computing_Lessons\Google\Hack2skill (H2S)\Gen AI Academy APAC\Ideathon Challenge\reflective-gemini-journal` on branch `candidate/verified-2026-09-05`。It is not committed or pushed yet。GitHub is intended to become the canonical exchange point for Codex、Claude Code，and file／export-based Google AI Studio collaboration；each local agent should use its own branch or external sibling worktree rather than editing the same checkout concurrently。
+The verified candidate has been assembled in the GitHub clone at `D:\Lessons\Computing_Lessons\Google\Hack2skill (H2S)\Gen AI Academy APAC\Ideathon Challenge\reflective-gemini-journal` on branch `candidate/verified-2026-09-05`。The 52-file payload is locally committed as `7133301` and has not been pushed yet。GitHub is intended to become the canonical exchange point for Codex、Claude Code，and file／export-based Google AI Studio collaboration；each local agent should use its own branch or external sibling worktree rather than editing the same checkout concurrently。
 
 The migrated package now includes the previously omitted `firebase.json`、Firestore Rules runner，and location／RBAC／notification／crisis-resource test suites。Dependency installation uses the lockfile plus an explicit pnpm lifecycle policy：only `esbuild` is allowed to run install scripts；`@firebase/util`、`@google/genai`、`protobufjs`，and optional native `re2` are denied。A frozen install completed successfully with pnpm `11.19.0`，and the lockfile stayed byte-identical to the verified source。
 
@@ -462,7 +462,7 @@ Current local verification passes：TypeScript、production client／server buil
 
 Keep `node_modules/`、`dist/`、`.firebase-config/`、`*.log`，and real `.env*` files out of Git。Only `.env.example` is intended for version control。The current secret scan found no private key、GitHub token、OAuth secret，or bearer JWT；the Firebase Web client key remains in `firebase-applet-config.json`，and webhook-like strings in `tests/notifications.test.ts` are validation fixtures。Do not commit server credentials、Firebase Admin credentials、Cloud Run variables，or one-time RBAC command inputs。
 
-The next release-control step is to copy the refreshed five handoff documents into the clone，review the complete staged diff，and create a local commit。Push、merge、deployment、Publish，owner bootstrap，and role mutation have not been performed。
+The payload commit `7133301` passed the complete staged review and left a clean working tree。The next release-control step is to commit the documentation-only status refresh，fetch and verify `origin`，and push the candidate branch。Merge、deployment、Publish，owner bootstrap，and role mutation have not been performed。
 
 Git operations should be run from the repository owner's normal PowerShell session。A read-only Codex sandbox process may report `dubious ownership` because its Windows SID differs；do not add a broad global `safe.directory` exception for this。This does not affect the user-owned checkout or its verified Git status。
 
