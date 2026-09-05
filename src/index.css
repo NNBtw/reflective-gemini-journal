@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-bg-canvas: #FAF8F5;
+    --color-bg-surface: #F3EFEA;
+    --color-bg-card: #FFFFFF;
+    --color-border: #E5DDD3;
+    --color-border-subtle: #EFE9E1;
+    --color-text-main: #33312E;
+    --color-text-muted: #7A746B;
+    --color-sage: #535C45;
+    --color-sage-hover: #434B37;
+    --color-sage-light: #EBF0E5;
+    --color-clay: #9C5D47;
+    --color-clay-light: #F9ECE6;
+    --color-sand: #DFD6C9;
+  }
+
+  body {
+    background-color: #FAF8F5;
+    color: #33312E;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', Times, serif;
+  }
+}
+
+/* Natural tones scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #DFD6C9;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C8BEAF;
+}
+
+/* Hide scrollbar helper */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
