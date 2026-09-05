@@ -555,3 +555,9 @@ The local fix adds an explicit empty-history branch to `hasValidMessageTransitio
 This fix is not deployed yet。Browser and cloud-console operations are manual-only。After an approved Rules／application deployment，use synthetic content to create a blank entry，send exactly one message，wait for the reply，reload，and confirm both messages persist and the response metadata reports `gemini-3.6-flash`。Do not use real journal or identity data during QA。
 
 Final local diff whitespace validation passed；the credential scan found no new secret。Any Slack／Discord webhook-shaped values reported during verification are test-only validation fixtures，not configured delivery credentials。
+
+## 2026-09-06 Preview release verification
+
+The fixed Firestore Rules are now deployed to the application's named database。Google AI Studio contains exactly the two persistence-gated application replacements，and its typecheck／production build passed。A controlled Preview test successfully saved the first user message、received a `gemini-3.6-flash` response，and retained both messages after reload without a Firestore permission error。
+
+The temporary Preview Maps failure was an expected referrer restriction：the production Maps key rejected the transient Preview origin while `/api/maps-config` remained healthy。The separately restricted Preview key passed pin／save／reload／remove；the synthetic location was removed and production-key mapping was restored。The application checkpoint still requires Republish and a final synthetic Production regression。

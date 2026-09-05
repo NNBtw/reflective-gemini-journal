@@ -755,3 +755,9 @@ Please confirm you understand the constraints above that are relevant to this ta
 - Verified locally on 2026-09-06：Rules `31/31`、location `5/5`、security `13/13`、TypeScript and production build all passed。The build still emits the pre-existing chunk-size advisory。
 - Browser and cloud-console actions are now manual-only at the user's request。No deploy has occurred；next manual production QA follows only after an explicitly approved Rules／application deployment。
 - Final diff whitespace validation passed。The credential scan exposed only known test-fixture webhook URLs after a PowerShell exclusion mismatch；no live webhook or new secret was found。
+
+## 2026-09-06 — First-message release architecture checkpoint
+
+- The named Firestore database now runs the fixed `0 → 1` message-transition Rules。The AI Studio application checkpoint contains exactly the persistence-gated `src/App.tsx` and `src/components/JournalEditor.tsx` replacements；it is Preview-verified and not yet republished。
+- Preview Maps uses an ephemeral `ais-dev-…run.app` referrer。The production-restricted Maps key correctly failed there with `RefererNotAllowedMapError`；the separate Preview key passed the complete location lifecycle，then runtime mapping was restored to the production key。
+- Preview first-message save、Gemini reply、reload persistence，and `gemini-3.6-flash` attribution all passed under the intended test account。The remaining release path is Republish → Ready → one synthetic Production regression。

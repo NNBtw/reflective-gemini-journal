@@ -1035,3 +1035,12 @@ The initial read-only review identified the following confirmed risks:
 - [ ] With explicit deployment approval，publish the Rules and application。The user—not browser automation—then performs one synthetic blank-entry QA and confirms persistence after reload plus `modelUsed = gemini-3.6-flash`。
 - [x] No credential、secret、IAM、quota、model order、rate limit，App Check enforcement，or browser-key restriction was weakened or changed。
 - [x] Final `git diff --check` passed。Focused credential review found no new secret；the only webhook-shaped strings were pre-existing allowlist test fixtures，displayed because a PowerShell scan exclusion did not apply as intended。
+
+## 2026-09-06 — Preview security gate after Rules release
+
+- [x] Published the locally tested Firestore Rules to the exact named database without deploying unrelated Firebase or application resources。
+- [x] Confirmed the production Maps browser key fails closed on the unauthorized transient Preview origin with `RefererNotAllowedMapError` while the authenticated `/api/maps-config` route remains healthy。
+- [x] Used the dedicated origin-restricted Preview key for the controlled location lifecycle only；removed synthetic location data and restored the production key before any Republish action。
+- [x] AI Studio typecheck／build and the intended-account first-message Preview regression passed。The user message persisted before Gemini generation，the response persisted after reload，no Firestore permission error occurred，and the actual model remained `gemini-3.6-flash`。
+- [x] No API-key value、bearer token、payment information、full UID，or journal content was recorded。No App Check、IAM、quota、rate-limit、model-order，or API allowlist control changed。
+- [!] Application source remains Preview-only until Republish。Production persistence remediation is Partial，not complete，until the published app passes the same controlled reload test。

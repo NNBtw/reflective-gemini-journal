@@ -1179,3 +1179,13 @@ The next product pass should make the reflective outcome more concrete:
 - `pnpm build`：passed；existing Vite large-chunk advisory remains non-blocking。
 - No deployment、credential、model-order、quota、IAM，or App Check change was made。
 - `git diff --check` passed。A final focused secret-scan wrapper displayed only the existing Slack／Discord allowlist fixtures in `tests/notifications.test.ts` because its PowerShell glob exclusion was ineffective；no real webhook、private key、token，or newly introduced credential was detected。
+
+## 2026-09-06 — Deploy Rules and pass AI Studio Preview regression
+
+- Created local branch `fix/firestore-first-message-2026-09-06` and checkpoint commit `4205033` containing the verified nine-file source、test，and documentation change set。No remote push occurred。
+- Prepared a four-file manual release package；all three supplied source／Rules copies matched the checkpoint。ZIP SHA-256：`88F2EE8606731FB02EE51D578D26910B8ACE1D7AF8819DC39D14B433CC0B6215`。
+- Initial manual deployment command could not find global `pnpm` and made no cloud change。Using the bundled process-local Node path and repository-local Firebase CLI succeeded：Rules compiled、uploaded，and released to `jimmy-gemini-journal`。Although Firebase printed its standard index phase，`firebase.json` defines no index file。
+- Maps diagnostic：`/api/maps-config` returned `200`；Console identified `RefererNotAllowedMapError` for the Preview origin。The dedicated Preview key passed pin／save／reload／remove，the synthetic location was removed，and `GOOGLE_MAPS_API_KEY` was restored to the production key before release continuation。Preview-local LCP `5.06 s` was recorded separately and is not treated as Production field performance evidence。
+- User manually replaced exactly `src/App.tsx` and `src/components/JournalEditor.tsx` in AI Studio。AI Studio-reported TypeScript and production build both passed；Publish／Republish was not invoked。
+- Preview regression passed：first user-message save、Gemini response、reload persistence、no Firestore permission error，and runtime `modelUsed = gemini-3.6-flash`。
+- Tooling note：one later read-only document-tail command contained an undefined `charter` token before continuing to print the requested tails。It changed no file and is aggregated here without cross-document duplication。
