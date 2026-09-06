@@ -335,3 +335,6 @@
 
 - The first whole-file `apply_patch` attempted delete and add for the same path in one patch and was rejected before any change。Separate atomic delete／add patches succeeded。
 - Initial sandboxed Production build repeated the known ancestor-directory access denial and could not load `vite.config.ts`。The identical approved local command outside that restriction passed；no source or configuration workaround was introduced。
+- Documentation payload commit `a33e558` was synchronized to the D-drive canonical repository and pushed to GitHub branch `docs/documentation-restructure-2026-09-06`。Remote `main` remained `b07f971` and was not merged or modified。
+- The first post-push blob-verification command repeated the known PowerShell parser error caused by piping directly from `foreach`；it stopped before executing any Git comparison and changed nothing。The variable-first retry passed：isolated／D-drive branch hashes matched，all five document blob hashes matched，ancestry from `main` passed and both working trees were clean。
+- The first `PROJECT_STATE.md` publication-status patch used two dependent hunks in the wrong context order and was rejected atomically。A single contiguous current-state patch then succeeded；no partial or duplicate status line was created。

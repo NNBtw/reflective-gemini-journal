@@ -46,8 +46,8 @@ The public app and canonical Cloud Run endpoint passed user-operated signed-out�
 - Public `main` merge commit before this documentation milestone：`b07f9710b54755cc3a90a04e2cb6a80f42d17ff3`。
 - PR `#2` merged the first-message persistence fix and Preview／Production verification records into `main`。
 - D-drive canonical repository `main` was fast-forwarded to the same merge commit and verified clean。
-- Active isolated working branch：`docs/documentation-restructure-2026-09-06`，created from that merged `main`。
-- Documentation role separation、local baseline and final diff／link／secret checks are complete；commit and remote publication remain。
+- Active isolated working branch：`docs/documentation-restructure-2026-09-06`，created from that merged `main` and published to GitHub for review。
+- Documentation role separation、local baseline、final diff／link／secret checks、D-drive synchronization and GitHub branch publication are complete。
 - This branch changes first-party Markdown documentation only；no application source、dependency、Firebase、Cloud Run、Secrets、billing or Production data mutation is authorized by this milestone。
 - Merge into `main` remains a user-operated decision after branch review。
 
@@ -142,11 +142,10 @@ The recording uses synthetic content and an isolated demo account. No password�
 
 ## 7. Next actions
 
-1. Commit and push `docs/documentation-restructure-2026-09-06` to the D-drive canonical repository and GitHub without merging `main`。
-2. User reviews the docs-only PR，then decides whether to merge。
-3. After merge，verify anonymous access to repository root、`README.md` and `firestore.rules` on public `main`。
-4. Finish the form brief and select only accurately used services：Firebase Authentication、multi-turn Gemini、user-isolated Firestore、Secret Manager，plus `Others` only with deployed custom features described。
-5. Perform the final field review，then the user manually presses `Submit`。
+1. User reviews the docs-only PR，then decides whether to merge。
+2. After merge，verify anonymous access to repository root、`README.md` and `firestore.rules` on public `main`。
+3. Finish the form brief and select only accurately used services：Firebase Authentication、multi-turn Gemini、user-isolated Firestore、Secret Manager，plus `Others` only with deployed custom features described。
+4. Perform the final field review，then the user manually presses `Submit`。
 
 ## 8. Canonical file map
 
