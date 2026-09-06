@@ -338,3 +338,18 @@
 - Documentation payload commit `a33e558` was synchronized to the D-drive canonical repository and pushed to GitHub branch `docs/documentation-restructure-2026-09-06`。Remote `main` remained `b07f971` and was not merged or modified。
 - The first post-push blob-verification command repeated the known PowerShell parser error caused by piping directly from `foreach`；it stopped before executing any Git comparison and changed nothing。The variable-first retry passed：isolated／D-drive branch hashes matched，all five document blob hashes matched，ancestry from `main` passed and both working trees were clean。
 - The first `PROJECT_STATE.md` publication-status patch used two dependent hunks in the wrong context order and was rejected atomically。A single contiguous current-state patch then succeeded；no partial or duplicate status line was created。
+
+## 2026-09-06 — Final submission smoke test
+
+- User-operated isolated-demo-account check against the public AI Studio URL：page load and Firebase Google sign-in Passed with no visible error。
+- A new synthetic first message saved successfully，received an English Gemini response，and both messages persisted after reload；no Firestore permission error was observed。
+- The consent-based Maps lifecycle Passed：picker load、no automatic device-location request、manual pin and save、reload persistence、open in Google Maps、remove and second reload；no Maps／API error was observed。
+- This was a Production evidence refresh only。No application source、Firestore Rules、cloud configuration、secrets or real journal data were changed。
+- Submission gates 1–6 were reported complete；final form submission remained pending at this checkpoint。The optional higher-resolution YouTube copy was not required for the verified LinkedIn social-post URL。
+- Before recording the submission result，Git evidence confirmed PR `#3` had merged the documentation restructure into public `main` at `93bba9daf22284eb1681831f0c65e343160475d6`；the stale pre-merge handoff wording was corrected。
+
+## 2026-09-06 — Ideathon submission completed
+
+- Hack2Skill dashboard status was user-confirmed as **Submitted** at 2026-09-06 10:09（Asia/Taipei），with 16 hours 19 minutes remaining on the displayed countdown。
+- The submitted social-post field retained the previously verified LinkedIn URL；the higher-resolution YouTube upload remained an optional follow-up rather than a submission dependency。
+- The authenticated dashboard submission URL is intentionally omitted from the public README；retain the confirmation screenshot／URL privately as submission evidence。

@@ -209,6 +209,8 @@ Changes must preserve all of the following unless the user explicitly authorizes
 - Markdown export and deterministic safety response。
 - App Check client initialization；enforcement remains off。
 
+The final user-operated submission smoke test reconfirmed public page load、demo-account authentication、synthetic first-message save、English Gemini response、reload persistence and the full explicit Maps pin／save／reload／open／remove lifecycle。No automatic device-location request、Firestore permission error or Maps／API error appeared。
+
 ### Repository-only candidates
 
 - Privileged RBAC bootstrap／mutation and admin dashboard runtime。
