@@ -8,6 +8,7 @@ Reflective is a privacy- and security-first AI journaling companion built for th
 
 - **Public app:** [reflective-journal-ai-companion.ai.studio](https://reflective-journal-ai-companion.ai.studio/)
 - **Cloud Run endpoint:** [reflective-gemini-journal-companion-516107960247.us-west1.run.app](https://reflective-gemini-journal-companion-516107960247.us-west1.run.app/)
+- **Gen AI Academy APAC Ideathon:** Submitted on 2026-09-06（Asia/Taipei）
 - **Product demo:** [LinkedIn post](https://lnkd.in/p/g2PDpeEi)
 - **Source:** [github.com/NNBtw/reflective-gemini-journal](https://github.com/NNBtw/reflective-gemini-journal)
 
@@ -182,10 +183,11 @@ The local baseline was rerun on 2026-09-06 after the documentation-only restruct
 | Security tests | `13/13` passed |
 | Firestore Emulator Rules tests | `31/31` passed |
 | Preview first-message save, Gemini response, and reload persistence | Passed |
-| Production first-message save, Gemini response, and reload persistence | Passed |
+| Production page load and demo-account sign-in | Passed without visible error during submission-day smoke test |
+| Production first-message save, Gemini response, and reload persistence | Passed; English input received an English Gemini response |
 | Production Firestore permission error | None observed |
 | Production model metadata | `modelUsed = gemini-3.6-flash` |
-| Production Maps load | Passed |
+| Production Maps consent lifecycle | Load, explicit pin, save, reload, open in Google Maps, remove, and second reload Passed; no automatic device-location request or Maps/API error |
 
 The browser-based Preview and Production checks were user-operated. Detailed evidence and earlier failed cases are retained in the project logs.
 

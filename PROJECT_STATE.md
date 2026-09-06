@@ -43,13 +43,11 @@ The public app and canonical Cloud Run endpoint passed user-operated signed-out�
 ## 2. Repository state
 
 - GitHub repository：`https://github.com/NNBtw/reflective-gemini-journal`
-- Public `main` merge commit before this documentation milestone：`b07f9710b54755cc3a90a04e2cb6a80f42d17ff3`。
+- Public `main` current merge commit：`93bba9daf22284eb1681831f0c65e343160475d6`。
 - PR `#2` merged the first-message persistence fix and Preview／Production verification records into `main`。
-- D-drive canonical repository `main` was fast-forwarded to the same merge commit and verified clean。
-- Active isolated working branch：`docs/documentation-restructure-2026-09-06`，created from that merged `main` and published to GitHub for review。
-- Documentation role separation、local baseline、final diff／link／secret checks、D-drive synchronization and GitHub branch publication are complete。
-- This branch changes first-party Markdown documentation only；no application source、dependency、Firebase、Cloud Run、Secrets、billing or Production data mutation is authorized by this milestone。
-- Merge into `main` remains a user-operated decision after branch review。
+- PR `#3` merged the documentation information-architecture restructure into `main` at `93bba9d`。
+- D-drive canonical repository and this isolated checkout are synchronized to that merge commit before the submission-record documentation changes。
+- The current submission-record changes affect first-party Markdown documentation only；no application source、dependency、Firebase、Cloud Run、Secrets、billing or Production data was mutated。
 
 ## 3. Deployed and verified behavior
 
@@ -98,11 +96,12 @@ The public app and canonical Cloud Run endpoint passed user-operated signed-out�
 | AI Studio Preview first-message save | Passed |
 | Preview Gemini response／reload persistence | Passed |
 | Preview model metadata | `gemini-3.6-flash` |
-| Production first-message save | Passed |
-| Production Gemini response／reload persistence | Passed |
+| Production page load／demo-account sign-in | Passed without visible error in final submission smoke test |
+| Production first-message save | Passed with synthetic content |
+| Production Gemini response／reload persistence | Passed；English input produced an English response |
 | Production Firestore permission error | None observed |
 | Production model metadata | `gemini-3.6-flash` |
-| Production Maps load | Passed |
+| Production Maps consent lifecycle | Load、no automatic device-location request、pin、save、reload、open、remove and second reload Passed；no Maps／API error |
 
 Preview Maps required its separately restricted transient-origin key during testing. The Production key was restored before Republish. Production localization remains Google Maps/browser-default behavior by design.
 
@@ -133,10 +132,12 @@ Challenge deadline recorded from organizer evidence：`2026-09-06 23:59 IST`，e
 | Track | `Ideathon Challenge` selected — Passed |
 | Working Prototype | Public app URL entered — Passed；canonical Cloud Run URL remains available |
 | Demo Social Post | `https://lnkd.in/p/g2PDpeEi` — user verified signed-out access、video playback and required hashtag |
-| Public repository | URL known；final post-documentation public check pending |
-| Brief description | Pending |
-| Service checkboxes | Pending |
-| Final Submit | Not pressed |
+| Public repository | `https://github.com/NNBtw/reflective-gemini-journal` entered — Passed |
+| Brief description | Entered — Passed |
+| Service checkboxes | All five selected — Passed |
+| Final Submit | **Submitted**；user-confirmed dashboard status at 2026-09-06 10:09（Asia/Taipei） |
+
+The Production UI displays `ReflectAI` while the repository title uses `Reflective`。This is a non-blocking branding-consistency follow-up；do not introduce a deadline-adjacent UI change solely for naming。
 
 The recording uses synthetic content and an isolated demo account. No password、OTP、recovery detail、API key、Cloud Console secret or real journal content may appear.
 

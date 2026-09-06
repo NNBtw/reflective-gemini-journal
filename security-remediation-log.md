@@ -319,6 +319,8 @@ The earlier README、handoff and architecture files repeated chronological statu
 | App Check | Client activation Passed；enforcement Deferred |
 | Demo privacy | Synthetic content and signed-out social-post access Passed |
 
+Submission-day Production reconfirmation used the isolated demo account and synthetic journal content。Authentication、first-write persistence、Gemini response、reload recovery and the complete consent-based Maps lifecycle Passed without Firestore permission、Maps／API or automatic device-location prompts。No real journal content was used。
+
 ## Post-submission security priorities
 
 1. Establish a tested browser-origin inventory and apply Firebase Web key application restrictions。
